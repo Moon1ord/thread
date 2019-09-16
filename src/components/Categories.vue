@@ -7,13 +7,9 @@
 <script>
 export default {
     name: 'categories'
-
 }
 </script>
 
 <style scoped>
-    #categories_block{
-
-    }
 
 </style>

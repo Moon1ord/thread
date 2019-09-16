@@ -1,29 +1,28 @@
 <template>
   <div id="app">
-    <navigation />
-    <articles />
-    <categories />
+    <navigation/>
+    <articles/>
   </div>
 </template>
 
 <script>
-import Categories from './components/Categories.vue';
+
 import Navigation from './components/Navigation.vue';
 import Articles from './components/Articles.vue';
 
 export default {
   name: 'app',
   components: {
-    Categories,
     Articles,
-    Navigation
-  }
+    Navigation,
+    }
 }
 </script>
 
 <style>
 html, body {
-  height: 99%;
+  height: 100%;
+  margin: 0;
 }
 </style>
 
@@ -31,5 +30,6 @@ html, body {
   #app{
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
 </style>

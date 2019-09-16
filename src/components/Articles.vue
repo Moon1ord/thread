@@ -1,10 +1,12 @@
 <template>
     <div id="articles_thread">
-        <h1>Articles</h1>
+        <Header/>
         <ul>
-            <li v-for="(item, index) in articles" :key="index">
+            <li class="article" v-for="(item, index) in articles" :key="index">
                 {{item.title}}
+                <img class="article_img" v-bind:src="item.urlToImage">
                 {{item.description}}
+                <a v-bind:href="item.url" target="_blank">Link</a>
             </li>
         </ul>
     </div>
@@ -13,9 +15,14 @@
 <script>
 
 import axios from 'axios';
+import Header from './Header.vue';
 
 export default {
     name: 'articles_block',
+
+    components : {
+        Header
+    },
 
     data(){
         return {
@@ -26,8 +33,7 @@ export default {
 
     methods : {
         getArticles(){
-            axios.get(this.api_url).then(response => {this.articles = response.data.articles});
-
+            axios.get(this.api_url).then(response => {this.articles = response.data.articles;});
         }
     },
 
@@ -41,6 +47,16 @@ export default {
 </script>
 
 <style scoped>
-    #articles_thread{
+    .article{
+        max-width: 700px;
+        width:100%;
+        margin-bottom: 20px;
+    }
+
+    .article_img{
+        max-width: 700px;
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px
     }
 </style>
