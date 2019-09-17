@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation/>
-    <articles/>
+    <articles :apiKey="api_key"/>
   </div>
 </template>
 
@@ -15,7 +15,13 @@ export default {
   components: {
     Articles,
     Navigation,
-    }
+    },
+
+    data() {
+      return {
+        api_key: 'b06a304e06444c428de357a3edcadab8'
+      }
+    },
 }
 </script>
 
@@ -30,6 +36,5 @@ html, body {
   #app{
     display: flex;
     flex-direction: row;
-    justify-content: center;
   }
 </style>

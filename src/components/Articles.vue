@@ -1,6 +1,6 @@
 <template>
     <div id="articles_thread">
-        <Header/>
+        <Header v-on:passQueryToParent="onSearchClick"/>
         <ul>
             <li class="article" v-for="(item, index) in articles" :key="index">
                 {{item.title}}
@@ -27,21 +27,36 @@ export default {
     data(){
         return {
             articles : [],
-            api_url: 'https://newsapi.org/v2/everything?q=russia&from=2019-09-12&to=2019-09-12&sortBy=popularity&apiKey=b06a304e06444c428de357a3edcadab8'
+            api_url: 'https://newsapi.org/v2/everything',
+            query : ''
         }
     },
 
+    props: {
+        apiKey : String,
+    },
+
     methods : {
-        getArticles(){
-            axios.get(this.api_url).then(response => {this.articles = response.data.articles;});
+        getArticles(query){
+            try {
+                let request = new URL(this.api_url);
+                let params = new URLSearchParams(request.search.slice(1));
+                request.searchParams.append('q', query);
+                request.searchParams.append('apiKey', this.apiKey);
+                axios.get(request).then(response => {this.articles = response.data.articles;});
+            } catch (error) {
+                console.log('ERR while getting articles!')
+            }
+        },
+
+        onSearchClick(value){
+            this.$set(this, 'query', value);
         }
     },
 
     mounted() {
       this.getArticles();  
     },
-
-    
 }
 
 </script>

@@ -1,13 +1,27 @@
 <template>
     <div id="header_container">
         <div id="header">
+            <input type="text" name="searchString" v-model="query" placeholder="search news">
+            <button type="submit" v-on:click="emitQueryToParent()">search</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name : 'header_block'
+    name : 'header_block',
+
+    data() {
+        return {
+            query : ''     
+        }
+    },
+
+    methods: {
+        emitQueryToParent(event){
+            this.$emit('passQueryToParent', this.query);
+        }
+    },
 }
 </script>
 
