@@ -1,8 +1,8 @@
 <template>
     <div id="articles_thread">
         <Header v-on:passQueryToParent="onSearchClick"/>
-        <ul>
-            <li class="article" v-for="(item, index) in articles" :key="index">
+        <ul class="list-group">
+            <li class="article list-group-item" v-for="(item, index) in articles" :key="index">
                 {{item.title}}
                 <img class="article_img" v-bind:src="item.urlToImage">
                 {{item.description}}
@@ -27,8 +27,17 @@ export default {
     data(){
         return {
             articles : [],
-            api_url: 'https://newsapi.org/v2/everything',
-            query : ''
+            api_urls: ['https://newsapi.org/v2/everything',
+                'https://newsapi.org/v2/top-headlines'],
+            query : '',
+            locale : ''
+        }
+    },
+
+    watch: {
+        query : function(){
+            window.scrollTo(0, 0);
+            this.getArticles(this.query);
         }
     },
 
@@ -39,13 +48,25 @@ export default {
     methods : {
         getArticles(query){
             try {
-                let request = new URL(this.api_url);
+                let request = new URL(this.api_urls[0]);
                 let params = new URLSearchParams(request.search.slice(1));
                 request.searchParams.append('q', query);
                 request.searchParams.append('apiKey', this.apiKey);
                 axios.get(request).then(response => {this.articles = response.data.articles;});
             } catch (error) {
-                console.log('ERR while getting articles!')
+                console.log('ERR while getting EVERYTHING articles!')
+            }
+        },
+
+        getHeadlines(locale){
+            try {
+                let request = new URL(this.api_urls[1]);
+                let params = new URLSearchParams(request.search.slice(1));
+                request.searchParams.append('country', locale);
+                request.searchParams.append('apiKey', this.apiKey);
+                axios.get(request).then(response => {this.articles = response.data.articles;});
+            } catch (error) {
+                console.log('ERR while getting HEADLINES articles!')
             }
         },
 
@@ -55,7 +76,8 @@ export default {
     },
 
     mounted() {
-      this.getArticles();  
+        this.locale = (window.navigator.languages[0]).slice(0, 2).toLowerCase()
+        this.getHeadlines(this.locale);  
     },
 }
 
@@ -63,13 +85,14 @@ export default {
 
 <style scoped>
     .article{
-        max-width: 700px;
+        max-width: 900px;
         width:100%;
         margin-bottom: 20px;
+        margin-left: 40px;
     }
 
     .article_img{
-        max-width: 700px;
+        max-width: 900px;
         width: 100%;
         margin-bottom: 20px;
         margin-top: 20px

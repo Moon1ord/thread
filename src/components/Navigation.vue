@@ -2,9 +2,8 @@
 <div id="menu_container">
     <div id="navigation">
         <div id="logo">
-            <h1>Logo</h1>
+            <img id="logo" src="../assets/logo.jpg">
         </div>
-        <h1>Menu</h1>
         <categories />
     </div>
 </div>
@@ -22,18 +21,17 @@ export default {
 </script>
 
 <style scoped>
-    #logo{
-        max-width: 250px;
-        width : 100%;
-        background-color: aquamarine;
-    }
-
     #navigation{
         top : 0;
         position: sticky;
     }
     #menu_container{
-        max-width: 250px;
+        max-width: 300px;
+        width: 100%;
+        background-color: rgb(87, 87, 87)
+    }
+    #logo{
+        max-width: 300px;
         width: 100%;
     }
 </style>

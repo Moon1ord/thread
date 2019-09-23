@@ -28,14 +28,15 @@ export default {
 <style scoped>
     #header_container{
         margin-bottom: 100px;
+        margin-left: 40px;
     }
 
     #header{
         width: 100%;
-        max-width: 780px;
+        max-width: 900px;
         height: 100%;
         max-height: 75px;
         position: fixed;
-        background-color: cornflowerblue;
+        background-color: rgb(182, 182, 182);
     }
 </style>
