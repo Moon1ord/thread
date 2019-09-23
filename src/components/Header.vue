@@ -1,8 +1,8 @@
 <template>
     <div id="header_container">
         <div id="header">
-            <input type="text" name="searchString" v-model="query" placeholder="search news">
-            <button type="submit" v-on:click="emitQueryToParent()">search</button>
+            <input id="search" type="text" name="searchString" v-model="query" placeholder="search news">
+            <button id="search_button" type="submit" v-on:click="emitQueryToParent()">search</button>
         </div>
     </div>
 </template>
@@ -31,11 +31,18 @@ export default {
         margin-left: 40px;
     }
 
+    #search, #search_button{
+        float: right;
+        margin-top: 60px;
+        margin-right: 10px;
+    }
+
     #header{
+        z-index: 1;
         width: 100%;
         max-width: 900px;
         height: 100%;
-        max-height: 75px;
+        max-height: 100px;
         position: fixed;
         background-color: rgb(182, 182, 182);
     }

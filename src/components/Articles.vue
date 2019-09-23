@@ -38,6 +38,10 @@ export default {
         query : function(){
             window.scrollTo(0, 0);
             this.getArticles(this.query);
+        },
+
+        locale : function(){
+            
         }
     },
 

@@ -28,7 +28,8 @@ export default {
     #menu_container{
         max-width: 300px;
         width: 100%;
-        background-color: rgb(87, 87, 87)
+        background-color: rgb(87, 87, 87);
+        
     }
     #logo{
         max-width: 300px;
