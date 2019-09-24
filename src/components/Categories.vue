@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <ul id="countries_list">
                         <li v-for="(item, index) in countries" :key=index>
-                            <button class="btn btn-link">{{item}}</button></li>
+                            <button class="btn btn-link" @click="setLocale" :value="item">{{item}}</button></li>
                     </ul>
                 </div>
             </div>
@@ -23,6 +23,9 @@
 </template>
 
 <script>
+
+import Store from '../store';
+
 export default {
     name: 'categories',
     data() {
@@ -46,6 +49,13 @@ export default {
             'science', 
             'sport', 
             'technology']
+        }
+    },
+
+    methods: {
+        setLocale(elem){
+           Store.commit('change_location', elem.target.value)
+           console.log(Store.state.locale);
         }
     },
 }

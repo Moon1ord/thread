@@ -16,6 +16,7 @@
 
 import axios from 'axios';
 import Header from './Header.vue';
+import Store from '../store';
 
 export default {
     name: 'articles_block',
@@ -30,7 +31,7 @@ export default {
             api_urls: ['https://newsapi.org/v2/everything',
                 'https://newsapi.org/v2/top-headlines'],
             query : '',
-            locale : ''
+            locale : Store.state.locale
         }
     },
 
@@ -41,7 +42,8 @@ export default {
         },
 
         locale : function(){
-            
+            window.scroll(0,0);
+            this.getHeadlines(this.locale);
         }
     },
 
@@ -77,11 +79,20 @@ export default {
         onSearchClick(value){
             this.$set(this, 'query', value);
         }
-    },
+    }, 
 
-    mounted() {
-        this.locale = (window.navigator.languages[0]).slice(0, 2).toLowerCase()
-        this.getHeadlines(this.locale);  
+    mounted(){
+        this.getHeadlines(this.locale);
+
+        Store.subscribe((mutation, state) => {
+            switch(mutation.type){
+                case 'change_location' : 
+                const loc = state.locale;
+                    if(loc != this.locale){
+                        this.locale = loc;
+                    }
+            }
+        })  
     },
 }
 
