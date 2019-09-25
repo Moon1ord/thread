@@ -3,10 +3,16 @@
         <Header v-on:passQueryToParent="onSearchClick"/>
         <ul class="list-group">
             <li class="article list-group-item" v-for="(item, index) in articles" :key="index">
-                {{item.title}}
+                <h2>{{item.title}}</h2>
                 <img class="article_img" v-bind:src="item.urlToImage">
-                {{item.description}}
-                <a v-bind:href="item.url" target="_blank">Link</a>
+                <p>{{item.description}}</p>
+                <p>Source : {{item.source.name}}
+                    <br>
+                    URL : <a class="source_link" v-bind:href="item.url" target="_blank">{{item.url}}</a>
+                    <br>
+                    Author : {{item.author}}
+                </p>
+                <p>{{item.publishedAt}}</p>
             </li>
         </ul>
     </div>
@@ -111,5 +117,9 @@ export default {
         width: 100%;
         margin-bottom: 20px;
         margin-top: 20px
+    }
+
+    .source_link{
+        word-wrap: break-word;
     }
 </style>

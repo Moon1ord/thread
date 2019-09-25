@@ -3,18 +3,18 @@
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h4 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#countries_content" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#countries_content" aria-expanded="false" aria-controls="collapseOne">
                         Countries
                     </button>
                 </h4>
             </div>
 
-            <div id="countries_content" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div id="countries_content" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                    <ul id="countries_list">
-                        <li v-for="(item, index) in countries" :key=index>
-                            <button class="btn btn-link" @click="setLocale" :value="item">{{item}}</button></li>
-                    </ul>
+
+                    <select id="countries_list"  @change="setLocale" class="browser-default custom-select">
+                        <option v-for="(item, index) in countries" :key=index :value="item">{{item}}</option>
+                    </select>
                 </div>
             </div>
         </div>
