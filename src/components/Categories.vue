@@ -11,13 +11,20 @@
 
             <div id="countries_content" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-
-                    <select id="countries_list"  @change="setLocale" class="browser-default custom-select" v-model="selected_country">
-                        <option v-for="(item, index) in countries" :key=index :value="item">{{item}}</option>
-                    </select>
-                    <select id="categories_list" class="browser-default custom-select" @change="setCategory" v-model="selected_category">
-                        <option v-for="(category, index) in categories" :key="index" :value="category">{{category}}</option>
-                    </select>
+                    <ul class="list-group list-group-flush">
+                       <li class="list-group-item">
+                            <h5 class="card-title">Countries</h5>
+                            <select id="countries_list"  @change="setLocale" class="browser-default custom-select" v-model="selected_country">
+                                <option v-for="(item, index) in countries" :key=index :value="item">{{item}}</option>
+                            </select>
+                       </li>
+                       <li class="list-group-item">
+                            <h5 class="card-title">Categories</h5>
+                            <select id="categories_list"  @change="setCategory" class="browser-default custom-select" v-model="selected_category">
+                                <option v-for="(cat, index) in categories" :key=index :value="cat">{{cat}}</option>
+                            </select>
+                        </li>  
+                    </ul>
                 </div>
             </div>
         </div>
@@ -62,8 +69,8 @@ export default {
 
     methods: {
         setLocale(elem){
-           Store.commit('change_location', elem.target.value);
-           console.log(Store.state.locale);
+            Store.commit('change_location', elem.target.value);
+            console.log(Store.state.locale);
         },
 
         setCategory(elem){
