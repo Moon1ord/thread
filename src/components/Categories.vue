@@ -4,7 +4,7 @@
             <div class="card-header" id="headingOne">
                 <h4 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#countries_content" aria-expanded="false" aria-controls="collapseOne">
-                        Countries
+                        Headlines
                     </button>
                 </h4>
             </div>
@@ -12,8 +12,11 @@
             <div id="countries_content" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
 
-                    <select id="countries_list"  @change="setLocale" class="browser-default custom-select">
+                    <select id="countries_list"  @change="setLocale" class="browser-default custom-select" v-model="selected_country">
                         <option v-for="(item, index) in countries" :key=index :value="item">{{item}}</option>
+                    </select>
+                    <select id="categories_list" class="browser-default custom-select" @change="setCategory" v-model="selected_category">
+                        <option v-for="(category, index) in categories" :key="index" :value="category">{{category}}</option>
                     </select>
                 </div>
             </div>
@@ -44,18 +47,28 @@ export default {
 
             categories : ['entertaiment', 
             'general', 
-            'buisness', 
+            'business', 
             'health', 
             'science', 
             'sport', 
-            'technology']
+            'technology'],
+
+            query : '',
+
+            selected_country: Store.state.locale,
+            selected_category: Store.state.category
         }
     },
 
     methods: {
         setLocale(elem){
-           Store.commit('change_location', elem.target.value)
+           Store.commit('change_location', elem.target.value);
            console.log(Store.state.locale);
+        },
+
+        setCategory(elem){
+            Store.commit('set_category', elem.target.value);
+            console.log(Store.state.category);
         }
     },
 }

@@ -12,7 +12,7 @@
                     <br>
                     Author : {{item.author}}
                 </p>
-                <p>{{item.publishedAt}}</p>
+                <p>Data : {{item.publishedAt}}</p>
             </li>
         </ul>
     </div>
@@ -37,7 +37,8 @@ export default {
             api_urls: ['https://newsapi.org/v2/everything',
                 'https://newsapi.org/v2/top-headlines'],
             query : '',
-            locale : Store.state.locale
+            locale : Store.state.locale,
+            category : Store.state.category
         }
     },
 
@@ -49,7 +50,12 @@ export default {
 
         locale : function(){
             window.scroll(0,0);
-            this.getHeadlines(this.locale);
+            this.getHeadlines(this.locale, this.category);
+        },
+
+        category : function(){
+            window.scroll(0,0);
+            this.getHeadlines(this.locale, this.category);
         }
     },
 
@@ -70,11 +76,16 @@ export default {
             }
         },
 
-        getHeadlines(locale){
+        getHeadlines(locale, category){
             try {
                 let request = new URL(this.api_urls[1]);
                 let params = new URLSearchParams(request.search.slice(1));
+
                 request.searchParams.append('country', locale);
+                if(category!= ''){
+                    request.searchParams.append('category', category)    
+                }
+
                 request.searchParams.append('apiKey', this.apiKey);
                 axios.get(request).then(response => {this.articles = response.data.articles;});
             } catch (error) {
@@ -88,7 +99,7 @@ export default {
     }, 
 
     mounted(){
-        this.getHeadlines(this.locale);
+        this.getHeadlines(this.locale, this.category);
 
         Store.subscribe((mutation, state) => {
             switch(mutation.type){
@@ -96,6 +107,11 @@ export default {
                 const loc = state.locale;
                     if(loc != this.locale){
                         this.locale = loc;
+                    }
+                case 'set_category' : 
+                const cat = state.category;
+                    if(cat != this.category){
+                        this.category = cat;
                     }
             }
         })  

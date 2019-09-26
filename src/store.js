@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 
     state: {
-        locale : (window.navigator.languages[0]).slice(0, 2).toLowerCase()
+        locale : (window.navigator.languages[0]).slice(0, 2).toLowerCase(),
+        category: ''
     },
     
     getters: {
@@ -16,6 +17,10 @@ export default new Vuex.Store({
     mutations: {
         change_location(state, loc){
             this.state.locale = loc;
+        },
+
+        set_category(state, cat){
+            this.state.category = cat;
         }
 
     },
